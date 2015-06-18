@@ -1,105 +1,46 @@
 ---
-#
-# Copyright 2014 Major Hayden
-#
-#   Licensed under the Apache License, Version 2.0 (the "License");
-#   you may not use this file except in compliance with the License.
-#   You may obtain a copy of the License at
-#
-#       http://www.apache.org/licenses/LICENSE-2.0
-#
-#   Unless required by applicable law or agreed to in writing, software
-#   distributed under the License is distributed on an "AS IS" BASIS,
-#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#   See the License for the specific language governing permissions and
-#   limitations under the License.
-#
-
-  - name: 5.1.1 Install the rsyslog package (Scored)
-    yum: >
-      name=rsyslog
-      state=present
-    tags:
-      - scored
-      - section5.1
-      - section5.1.1
-
-  - name: 5.1.2 Activate the rsyslog Service (Scored)
-    service: >
-      name=rsyslog
-      enabled=yes
-      state=started
-    tags:
-      - scored
-      - section5.1
-      - section5.1.2
-
-  - name: 5.1.3 Configure /etc/rsyslog.conf (Not Scored)
-    copy: >
-      src=etc/rsyslog.conf
-      dest=/etc/rsyslog.conf
-      owner=root
-      group=root
-      mode=0644
-    tags:
-      - notscored
-      - section5.1
-      - section5.1.3
-
-  - name: 5.1.4 Create and Set Permissions on rsyslog Log Files (Scored)
-    file: >
-      path=/var/log/{{ item }}
-      state=touch
-      owner=root
-      group=wheel
-      mode=0640
+  - name: 5.1.1, 5.1.3, 5.1.5 Ensure NIS, rsh client, talk client are not installed (Scored)
+    apt: name={{ item }} state=absent
     with_items:
-        - messages
-        - kern.log
-        - daemon.log
-        - syslog
-        - unused.log
+      - nis
+      - rsh-client
+      - rsh-reload-client
+      - talk
     tags:
       - scored
-      - section5.1
-      - section5.1.4
-
-  - name: 5.1.5 Configure rsyslog to Send Logs to a Remote Log Host (Scored)
-    lineinfile: >
-      state=present
-      dest=/etc/rsyslog.conf
-      regexp="^\*\.\*"
-      line="*.* @@{{ rsyslog_dest }}"
-    when: rsyslog_dest is defined
-    tags:
-      - scored
-      - section5.1
+      - section5.1.1
+      - section5.1.3
       - section5.1.5
 
-  - name: 5.1.6 Accept Remote rsyslog Messages Only on Designated Log Hosts (Not Scored)
-    lineinfile: >
-      state=present
-      line="$ModLoad imtcp.so"
-    when: rsyslog_host
+  - name: 5.1.2, 5.1.4, 5.1.6 - 5.1.7, 5.2, 5.3, 5.4, 5.5, 5.6 Ensure rsh server, talk server, telnet server, tftp-server, chargen, daytime, echo, discard, time are not enabled (Scored)
+    lineinfile: dest=/etc/inetd.conf regexp="^{{ item }}" state=absent
+    with_items:
+      - shell
+      - login
+      - exec
+      - talk
+      - ntalk
+      - telnet
+      - tftp
+      - chargen
+      - daytime
+      - echo
+      - discard
+      - time
     tags:
-      - notscored
-      - section5.1
+      - scored
+      - section5.1.2
+      - section5.1.4
       - section5.1.6
-
-  - name: 5.1.6 Accept Remote rsyslog Messages Only on Designated Log Hosts (Not Scored)
-    lineinfile: >
-      state=present
-      line="$InputTCPServerRun 514"
-    when: rsyslog_host
-    tags:
-      - notscored
-      - section5.1
-      - section5.1.6
-
-  - name: 5.3 Configure logrotate (Not Scored)
-    copy: >
-      src=etc/logrotate.d/syslog
-      dest=/etc/logrotate.d/syslog
-    tags:
-      - notscored
+      - section5.1.7
+      - section5.2
       - section5.3
+      - section5.4
+      - section5.5
+      - section5.6
+
+  - name: 5.1.8 Ensure xinetd is not enabled (Scored)
+    lineinfile: dest=/etc/init/xinetd.conf regexp="start on runlevel" state-absent
+    tags:
+      - scored
+      - section5.1.8
