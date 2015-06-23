@@ -1,4 +1,4 @@
 ---
-  - name: 1.1 Install Updates, Patches and Additional Security Software (Not Scored)
-    apt: upgrade=yes update_cache=yes
-    sudo: yes
+
+- name: 1.1 Install Updates, Patches and Additional Security Software (Not Scored)
+  apt: upgrade=yes update_cache=yes
