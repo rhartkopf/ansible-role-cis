@@ -1,6 +1,4 @@
 ---
 
-- include: section_01_level1.yml
-  tags:
-    - section1
-    - level1
+- name: 1.1 Install Updates, Patches and Additional Security Software (Not Scored)
+  apt: upgrade=yes update_cache=yes

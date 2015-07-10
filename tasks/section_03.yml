@@ -1,6 +1,10 @@
 ---
 
-- include: section_03_level1.yml
-  tags:
-    - section3
-    - level1
+- name: 3.1 - 3.2 Set User/Group Owner and Permissions on bootloader config (Scored)
+  file: path=/boot/grub/grub.cfg owner=root group=root mode=400
+
+- name: 3.3 Set Boot Loader Password (Scored)
+  debug: msg="*** TO DO: Set Boot Loader Password (Scored)"
+
+- name: 3.4 Require Authentication for Single-User Mode (Scored)
+  debug: msg="*** TO DO: Require Authentication for Single-User Mode (Scored)"

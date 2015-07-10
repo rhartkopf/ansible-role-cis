@@ -1,6 +1,28 @@
 ---
 
-- include: section_04_level1.yml
-  tags:
-    - section4
-    - level1
+- name: 4.1 Restrict Core Dumps (Scored)
+  lineinfile: dest=/etc/security/limits.conf regexp="^\* hard core 0" insertbefore="^# End of file" line="* hard core 0"
+
+- name: 4.1 Restrict Core Dumps (Scored)
+  lineinfile: dest=/etc/sysctl.conf regexp="suid_dumpable" line="fs.suid_dumpable = 0"
+
+- name: 4.1 Restrict Core Dumps (Scored)
+  apt: name={{ item }} state=absent
+  with_items:
+    - apport
+    - whoopsie
+
+- name: 4.2 Enable XD/NX Support on 32-bit x86 Systems (Not Scored)
+  debug: msg="TO DO: Enable XD/NX Support on 32-bit x86 Systems (Not Scored)"
+
+- name: 4.3 Enable Randomized Virtual Memory Region Placement (Scored)
+  lineinfile: dest=/etc/sysctl.conf regexp="randomize_va_space" line="kernel.randomize_va_space = 2"
+
+- name: 4.4 Disable Prelink (Scored)
+  apt: name=prelink state=absent
+
+- name: 4.5 Activate AppArmor (Scored)
+  apt: name={{ item }}
+  with_items:
+    - apparmor
+    - apparmor-utils
