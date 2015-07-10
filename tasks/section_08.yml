@@ -1,3 +1,13 @@
 ---
 
+- name: 8.2.1 Install the rsyslog package (Scored)
+  apt: name=rsyslog
 
+- name: 8.2.2 Ensure the rsyslog Service is activated (Scored)
+  service: name=rsyslog enabled=yes
+
+- name: 8.2.3 Configure /etc/rsyslog.conf (Not Scored)
+  debug: msg='The /etc/rsyslog.conf file specifies rules for logging and which files are to be used to log certain classes of messages.'
+
+- name: 8.2.4 Create and Set Permissions on rsyslog Log Files (Scored)
+  
