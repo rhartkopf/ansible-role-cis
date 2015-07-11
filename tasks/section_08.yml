@@ -9,5 +9,8 @@
 - name: 8.2.3 Configure /etc/rsyslog.conf (Not Scored)
   debug: msg='The /etc/rsyslog.conf file specifies rules for logging and which files are to be used to log certain classes of messages.'
 
-- name: 8.2.4 Create and Set Permissions on rsyslog Log Files (Scored)
-  
+- name: 8.2.5 Configure rsyslog to Send Logs to a Remote Log Host (Scored)
+  debug: msg='Review the /etc/rsyslog.conf file and verify that logs are sent to a central host.'
+
+- name: 8.4 Configure logrotate (Not Scored)
+  debug: msg='Review the /etc/logrotate.d/rsyslog file to determine if the appropriate system logs are rotated according to your site policy.'
