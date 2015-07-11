@@ -1,0 +1,25 @@
+---
+
+- name: 12.1, 12.4 Verify Permissions and User/Group Ownership on /etc/passwd (Scored)
+  file: path=/etc/passwd owner=root group=root mode=644
+
+- name: 12.2, 12.5 Verify Permissions and User/Group Ownership on /etc/shadow (Scored)
+  file: path=/etc/shadow owner=root group=shadow mode=640
+
+- name: 12.3, 12.6 Verify Permissions and User/Group Ownership on /etc/group (Scored)
+  file: path=/etc/group owner=root group=root mode=644
+
+- name: 12.7 Find World Writable Files (Not Scored)
+  debug: msg='Removing write access for the "other" category (chmod o-w <filename>) is advisable, but always consult relevant vendor documentation to avoid breaking any application dependencies on a given file.'
+
+- name: 12.8 Find Un-owned Files and Directories (Scored)
+  debug: msg='Locate files that are owned by users or groups not listed in the system configuration files, and reset the ownership of these files to some active user on the system as appropriate.'
+
+- name: 12.9 Find Un-grouped Files and Directories (Scored)
+  debug: msg='Locate files that are owned by users or groups not listed in the system configuration files, and reset the ownership of these files to some active user on the system as appropriate.'
+
+- name: 12.10 Find SUID System Executables (Not Scored)
+  debug: msg='Ensure that no rogue set-UID programs have been introduced into the system. Review the files returned by the action in the Audit section and confirm the integrity of these binaries.'
+
+- name: 12.11 Find SGID System Executables (Not Scored)
+  debug: msg='Ensure that no rogue set-GID programs have been introduced into the system. Review the files returned by the action in the Audit section and confirm the the integrity of these binaries.'

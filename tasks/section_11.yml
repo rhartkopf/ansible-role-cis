@@ -1,0 +1,16 @@
+---
+
+- name: 11.1 Set Warning Banner for Standard Login Services (Scored)
+  file: path=/etc/motd owner=root group=root mode=644
+
+- name: 11.1 Set Warning Banner for Standard Login Services (Scored)
+  copy: path={{ item }} owner=root group=root mode=644 content='Authorized uses only. All activity may be \ monitored and reported.'
+  with_items:
+    - /etc/issue
+    - /etc/issue.net
+
+- name: 11.2 Remove OS Information from Login Warning Banners (Scored)
+  debug: msg='Edit the /etc/motd, /etc/issue and /etc/issue.net files and remove any lines containing \m, \r, \s or \v.'
+
+- name: 11.3 Set Graphical Warning Banner (Not Scored)
+  debug: msg='Set a banner for the display manager in use consistent with your organizations policy. This process depends on the specific Display Manager and theme in use, consult your documentation for more details.'

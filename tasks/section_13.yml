@@ -1,0 +1,61 @@
+---
+
+- name: 13.1 Ensure Password Fields are Not Empty (Scored)
+  debug: msg='If any accounts in the /etc/shadow file do not have a password, run the following command to lock the account until it can be determined why it does not have a password: /usr/bin/passwd -l <username>'
+
+- name: 13.2 Verify No Legacy "+" Entries Exist in /etc/passwd File (Scored)
+  debug: msg="Run the following command and verify that no output is returned: /bin/grep '^+:' /etc/passwd"
+
+- name: 13.3 Verify No Legacy "+" Entries Exist in /etc/shadow File (Scored)
+  debug: msg="Run the following command and verify that no output is returned: /bin/grep '^+:' /etc/shadow"
+
+- name: 13.4 Verify No Legacy "+" Entries Exist in /etc/group File (Scored)
+  debug: msg="Run the following command and verify that no output is returned: /bin/grep '^+:' /etc/group"
+
+- name: 13.5 Verify No UID 0 Accounts Exist Other Than root (Scored)
+  debug: msg="Run the following command and verify that only the word root is returned: /bin/cat /etc/passwd | /usr/bin/awk -F: '($3 == 0) { print $1 }'"
+
+- name: 13.6 Ensure root PATH Integrity (Scored)
+  debug: msg='Check the root PATH variable to verify no unauthorized paths have been added.'
+
+- name: 13.7 Check Permissions on User Home Directories (Scored)
+  debug: msg='It is recommended that a monitoring policy be established to report user file permissions and determine the action to be taken in accordance with site policy.'
+
+- name: 13.8 Check User Dot File Permissions (Scored)
+  debug: msg='It is recommended that a monitoring policy be established to report user dot file permissions and determine the action to be taken in accordance with site policy.'
+
+- name: 13.9 Check Permissions on User .netrc Files (Scored)
+  debug: msg='It is recommended that a monitoring policy be established to report user .netrc file permissions and determine the action to be taken in accordance with site policy.'
+
+- name: 13.10 Check for Presence of User .rhosts Files (Scored)
+  debug: msg='If any users have .rhosts files determine why they have them.'
+
+- name: 13.11 Check Groups in /etc/passwd (Scored)
+  debug: msg='Groups defined in the /etc/passwd file but not in the /etc/group file pose a threat to system security since group permissions are not properly managed.'
+
+- name: 13.12 Check That Users Are Assigned Valid Home Directories (Scored)
+  debug: msg='If any users home directories do not exist, create them and make sure the respective user owns the directory. Users without an assigned home directory should be removed or assigned a home directory as appropriate.'
+
+- name: 13.13 Check User Home Directory Ownership (Scored)
+  debug: msg='Change the ownership of any home directories that are not owned by the defined user to the correct user.'
+
+- name: 13.14 Check for Duplicate UIDs (Scored)
+  debug: msg='Users must be assigned unique UIDs for accountability and to ensure appropriate access protections.'
+
+- name: 13.15 Check for Duplicate GIDs (Scored)
+  debug: msg='User groups must be assigned unique GIDs for accountability and to ensure appropriate access protections.'
+
+- name: 13.16 Check for Duplicate User Names (Scored)
+  debug: msg='Establish unique user names for all users.'
+
+- name: 13.17 Check for Duplicate Group Names (Scored)
+  debug: msg='Establish unique group names for all groups.'
+
+- name: 13.18 Check for Presence of User .netrc Files (Scored)
+  debug: msg='It is recommended that a monitoring policy be established to report user .netrc files and determine the action to be taken in accordance with site policy.'
+
+- name: 13.19 Check for Presence of User .forward Files (Scored)
+  debug: msg='It is recommended that a monitoring policy be established to report user .forward files and determine the action to be taken in accordance with site policy.'
+
+- name: 13.20 Ensure shadow group is empty (Scored)
+  debug: msg='Remove all users from the shadow group, and change the primary group of any users with shadow as their primary group.'
